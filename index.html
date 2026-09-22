@@ -1,224 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>S2C: Turning Safety into Competence</title>
-  <meta name="description" content="S2C separates safety-filter synthesis from competitive task learning: a robust safety filter is learned first and embedded in the environment for multi-agent RL, yielding minimally exploitable robot policies.">
+  <meta name="description"
+    content="S2C separates safety-filter synthesis from competitive task learning: a robust safety filter is learned first and embedded in the environment for multi-agent RL, yielding minimally exploitable robot policies.">
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;600;700&family=Source+Code+Pro&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
-  <link rel="stylesheet" href="static/css/lab-theme.css">
+  <link rel="stylesheet" href="static/css/lab-theme.css?v=13">
   <script defer src="static/js/fontawesome.all.min.js"></script>
 </head>
+
 <body>
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop has-text-centered">
-      <h1 class="title is-1 publication-title">Turning Safety into Competence:<br>Minimally Exploitable Robot Policies via Safety-Filtered Reinforcement Learning</h1>
-      <!-- TODO: authors (with personal links) and affiliations -->
-      <div class="publication-links">
-        <!-- TODO: fill the hrefs; remove a button that has no target yet -->
-        <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
-          <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a></span>
-        <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
-          <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a></span>
-        <span class="link-block"><a href="#video" class="external-link button is-normal is-rounded is-dark">
-          <span class="icon"><i class="fas fa-video"></i></span><span>Video</span></a></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="fig"><img src="static/images/head_fig_new.png" alt="S2C and safe RL baselines in the hardware touchdown game against a human opponent"></div>
-    <p class="fig-caption has-text-centered"><span class="m-s2c">S2C</span> enforces robot safety without sacrificing competitive performance.
-      A quadrupedal robot (orange trajectory) plays a touchdown game against a human opponent (grey trajectory).
-      <b>Top:</b> as attacker, S2C feints past the human to score a touchdown; as defender, it tracks rapid human direction changes and holds the line.
-      <b>Bottom:</b> safe RL baselines fail under competitive opponent strategies &mdash; the <span class="m-et">ET</span> attacker exits the field while turning,
-      the <span class="m-cpo">CPO</span> attacker collides with the human, and the <span class="m-et">ET</span> defender falls while pursuing the human.</p>
-  </div>
-</section>
-
-<section class="section" id="video">
-  <div class="container is-max-desktop">
-    <video controls preload="metadata" playsinline width="100%" src="static/videos/s2c_full_demo.mp4"></video>
-  </div>
-</section>
-
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>Robots deployed for competitive tasks must outmaneuver their opponents without sacrificing safety.
-          Existing approaches, including safe reinforcement learning (RL), train a single policy to achieve task success and avoid failures simultaneously.
-          This coupling can complicate training and leave the learned policy exploitable by deliberate attacks.
-          We propose Safety to Competence (S2C), a two-stage RL framework that separates safety synthesis from competitive task learning.
-          We formulate competitive robot interactions as safety-critical Markov games and prove that perfect filtering preserves policy non-exploitability when all players commit to safe maneuvers.
-          S2C learns a robust safety filter via adversarial RL, embeds it in the environment during task policy training, and retains the same filter at deployment.
-          In simulated quadruped touchdown games, S2C outperforms four safe RL baselines and their filtered variants, achieving the highest win rate and Elo rating, and the lowest empirical exploitability.
-          Hardware stress tests against a human opponent confirm S2C&rsquo;s competence.</p>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h1 class="title is-1 publication-title">Turning <span class="t-safety">Safety</span> into <span
+            class="t-competence">Competence</span>:<br>Minimally Exploitable Robot Policies via Safety-Filtered
+          Reinforcement Learning</h1>
+        <div class="is-size-5 publication-authors">
+          <span class="author-block"><a href="https://rayh-wu.github.io/" target="_blank">Ruihan Wu</a><sup
+              class="author-mark">*</sup></span>
+          <span class="author-block"><a href="https://ledeix.github.io/" target="_blank">Rui Yang</a><sup
+              class="author-mark">*</sup></span>
+          <span class="author-block"><a href="https://donggeondavidoh.github.io/" target="_blank">Donggeon David
+              Oh</a></span>
+          <span class="author-block"><a href="https://buzinguyen.com/" target="_blank">Duy Nguyen</a><sup
+              class="author-mark">&dagger;</sup></span>
+          <span class="author-block"><a href="https://alliance-ai.cs.jhu.edu/team/haimin/" target="_blank">Haimin
+              Hu</a><sup class="author-mark">&dagger;</sup></span>
+          <div class="author-notes"><span><sup class="author-mark">*</sup>Equal contribution</span><span><sup
+                class="author-mark">&dagger;</sup>Equal advising</span></div>
+        </div>
+        <div class="publication-links">
+          <!-- TODO: fill the hrefs; remove a button that has no target yet -->
+          <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a></span>
+          <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a></span>
+          <span class="link-block"><a href="#video" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-video"></i></span><span>Video</span></a></span>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3 has-text-centered">Method</h2>
-    <div class="fig"><img src="static/images/overview_new.png" alt="S2C training and deployment pipeline"></div>
-    <p class="fig-caption has-text-centered">Overview of the <span class="m-s2c">S2C</span> training and deployment pipeline, illustrated with the asymmetric touchdown game.</p>
-    <!-- Algorithm 1 as typeset in the final PDF (page 5), layout after symskill.github.io -->
-    <figure class="figure-panel">
-      <h3 class="figure-title">Pseudocode</h3>
-      <img src="static/images/algorithm_s2c.png" alt="Algorithm 1, S2C: Safety-Filtered Competitive RL">
-    </figure>
-  </div>
-</section>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="fig"><img src="static/images/head_fig_new.png"
+          alt="S2C and safe RL baselines in the hardware touchdown game against a human opponent"></div>
+      <p class="fig-caption has-text-centered"><span class="m-s2c">S2C</span> enforces robot safety without sacrificing
+        competitive performance.
+        A quadrupedal robot (orange trajectory) plays a touchdown game against a human opponent (grey trajectory).
+        <b>Top:</b> as attacker, S2C feints past the human to score a touchdown; as defender, it tracks rapid human
+        direction changes and holds the line.
+        <b>Bottom:</b> safe RL baselines fail under competitive opponent strategies &mdash; the <span
+          class="m-et">ET</span> attacker exits the field while turning,
+        the <span class="m-cpo">CPO</span> attacker collides with the human, and the <span class="m-et">ET</span>
+        defender falls while pursuing the human.
+      </p>
+      <p class="key-insight"><span class="tldr-label">TL;DR</span> <strong>Safety can be a source of
+          competence:</strong>
+        separating safety from task objectives in competitive RL substantially reduces policy exploitability
+        without compromising safety.</p>
+    </div>
+  </section>
 
-<section class="section" id="results">
-  <div class="container is-max-widescreen">
-    <h2 class="title is-3 has-text-centered">Results</h2>
+  <section class="section" id="video">
+    <div class="container is-max-desktop">
+      <video controls preload="metadata" playsinline width="100%" src="static/videos/s2c_full_demo.mp4"></video>
+    </div>
+  </section>
 
-    <h3 class="title is-4">Symmetric touchdown game</h3>
-    <div class="fig"><img src="static/images/fig_sym_sheet.png" alt="Symmetric game round-robin matrix, Elo ratings and empirical exploitability"></div>
-    <p class="fig-caption">Each cell corresponds to 3900 trials. <span class="m-s2c">S2C</span> outperforms all baselines, achieving the highest Elo rating and lowest empirical exploitability.
-      <b>Left:</b> round-robin win-rate matrix; each cell reports the row method&rsquo;s win rate against the column method, averaged over all pairs of training seeds.
-      <b>Top right:</b> Elo ratings computed jointly from all matches (higher is better).
-      <b>Bottom right:</b> empirical exploitability, the net win rate of the strongest evaluated opponent, averaged across seeds (lower is better).
-      &dagger; marks baselines deployed with the <span class="m-s2c">S2C</span> safety filter.</p>
-
-    <!-- simulation: one large clip + three tiles (layout after symskill.github.io) -->
-    <div class="result-block">
-      <div class="result-copy">
-        <span class="result-tag">Simulation</span>
-        <h3><span class="m-s2c">S2C</span> self-play in the asymmetric game</h3>
-        <p>The attacker starts on the left and must reach the green touchdown region before timeout; the defender wins by holding the line until time runs out.
-          A robot loses immediately if it falls, leaves the field, or initiates a collision.
-          Here both robots run <span class="m-s2c">S2C</span>: the three rounds end in a timeout, a touchdown, and another timeout.</p>
-        <p class="result-note">Simulation clips play at 1&times; and slow down at the end of each round.</p>
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>Robots deployed for competitive tasks must outmaneuver their opponents without sacrificing safety.
+              Existing approaches, including safe reinforcement learning (RL), train a single policy to achieve task
+              success and avoid failures simultaneously.
+              This coupling can complicate training and leave the learned policy exploitable by deliberate attacks.
+              We propose Safety to Competence (S2C), a two-stage RL framework that separates safety synthesis from
+              competitive task learning.
+              We formulate competitive robot interactions as safety-critical Markov games and prove that perfect
+              filtering preserves policy non-exploitability when all players commit to safe maneuvers.
+              S2C learns a robust safety filter via adversarial RL, embeds it in the environment during task policy
+              training, and retains the same filter at deployment.
+              In simulated quadruped touchdown games, S2C outperforms four safe RL baselines and their filtered
+              variants, achieving the highest win rate and Elo rating, and the lowest empirical exploitability.
+              Hardware stress tests against a human opponent confirm S2C&rsquo;s competence.</p>
+          </div>
+        </div>
       </div>
-      <div class="video-card"><video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_asym_selfplay.mp4"></video></div>
     </div>
+  </section>
 
-    <div class="video-grid">
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_sym_s2c_vs_nom.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Symmetric game</span>
-          <h4><span class="m-s2c">S2C</span> vs. <span class="m-nom">Nom</span></h4>
-          <p>Both robots race for the touchdown line on the opponent&rsquo;s side. <span class="m-s2c">S2C</span> starts on the left and gets there first in both rounds.</p>
-        </div>
-      </article>
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_asym_s2c_attacker_vs_et.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Asymmetric game</span>
-          <h4><span class="m-s2c">S2C</span> attacker vs. <span class="m-et">ET</span> defender</h4>
-          <p><span class="m-s2c">S2C</span> dodges the defender and reaches the touchdown region.</p>
-        </div>
-      </article>
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_asym_et_attacker_vs_s2c.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Asymmetric game</span>
-          <h4><span class="m-et">ET</span> attacker vs. <span class="m-s2c">S2C</span> defender</h4>
-          <p><span class="m-s2c">S2C</span> successfully defends against the opponent&rsquo;s attack. In both rounds, <span class="m-et">ET</span> initiates a collision and loses.</p>
-        </div>
-      </article>
-    </div>
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Method</h2>
+      <div class="fig"><img src="static/images/overview_new.png" alt="S2C training and deployment pipeline"></div>
+      <p class="fig-caption has-text-centered">Overview of the <span class="m-s2c">S2C</span> training and deployment
+        pipeline, illustrated with the asymmetric touchdown game.</p>
+      <!-- Algorithm 1 as typeset in the final PDF (page 5), layout after symskill.github.io -->
+      <figure class="figure-panel">
+        <h3 class="figure-title">Pseudocode</h3>
+        <!-- Algorithm 1 from the paper, one foldable block per stage (image version: static/images/algorithm_s2c.png) -->
+        <div class="alg">
+          <div class="alg-head"><b>Algorithm 1</b> <span class="m-s2c">S2C</span>: Safety-Filtered Competitive RL</div>
+          <p class="alg-input"><b>Input:</b> margins <i>g</i><sup><i>i</i></sup>, <i>g</i><sup><i>i</i>,c</sup>, task
+            reward <i>r</i>,
+            initial task policy <i>&pi;</i><span class="ss"><sup><i>i</i></sup><sub>init</sub></span>,
+            robust filter synthesis algorithm <span class="sc">Filter_Synthesis</span>,
+            multi-agent RL algorithm <span class="sc">MARL</span></p>
 
-    <!-- real world: S2C in both roles, then baseline failures -->
-    <div class="result-intro">
-      <span class="result-tag">Real world</span>
-      <h3>Unitree Go2 against a human opponent</h3>
-      <p>We deploy the policies on a Unitree Go2 in the asymmetric game against a human opponent, who moves a tracked surrogate representing the opposing robot.
-        The human&rsquo;s strategies were never seen during training.
-        Top: <span class="m-s2c">S2C</span> as attacker and as defender. Bottom: safe RL baselines fail under competitive human strategies.</p>
-    </div>
-    <div class="video-grid two">
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/s2c_attacker_touchdown.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Touchdown</span>
-          <h4><span class="m-s2c">S2C</span> attacker</h4>
-          <p><span class="m-s2c">S2C</span> feints past the human and reaches the touchdown line.</p>
-        </div>
-      </article>
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/s2c_defender_timeout.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Timeout</span>
-          <h4><span class="m-s2c">S2C</span> defender</h4>
-          <p><span class="m-s2c">S2C</span> tracks the human&rsquo;s rapid direction changes and holds the line until timeout.</p>
-        </div>
-      </article>
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/et_attacker_oob.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Out of bounds</span>
-          <h4><span class="m-et">ET</span> attacker</h4>
-          <p><span class="m-et">ET</span> exits the field while turning.</p>
-        </div>
-      </article>
-      <article class="video-tile">
-        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/cpo_attacker_collision.mp4"></video>
-        <div class="tile-body">
-          <span class="tile-tag">Collision</span>
-          <h4><span class="m-cpo">CPO</span> attacker</h4>
-          <p><span class="m-cpo">CPO</span> initiates a collision with the human.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
+          <details class="alg-stage stage-safety">
+            <summary><span class="stage-name">Training Stage 1: Robust Filter Synthesis</span>
+              <span class="stage-gist">learn the safety filter once</span>
+            </summary>
+            <ol class="alg-lines" start="1">
+              <li>(<i>Q</i><sup><i class="fas fa-shield-alt"></i></sup>, <i>&pi;</i><span class="ss"><sup><i
+                      class="fas fa-shield-alt"></i></sup><sub>1</sub></span>, <i>&pi;</i><span class="ss"><sup><i
+                      class="fas fa-shield-alt"></i></sup><sub>2</sub></span>) &larr; <span
+                  class="sc">Filter_Synthesis</span>(<i>g</i><sup>1</sup>, <i>g</i><sup>1,c</sup>, <i>g</i><sup>2</sup>,
+                <i>g</i><sup>2,c</sup>)
+              </li>
+              <li><span class="sc">Robust_Filter</span> &larr; (<i>Q</i><sup><i class="fas fa-shield-alt"></i></sup>,
+                <i>&pi;</i><span class="ss"><sup><i class="fas fa-shield-alt"></i></sup><sub>1</sub></span>,
+                <i>&pi;</i><span class="ss"><sup><i class="fas fa-shield-alt"></i></sup><sub>2</sub></span>)
+              </li>
+            </ol>
+          </details>
 
-<section class="section" id="BibTeX" hidden>
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <!-- TODO: replace once the arXiv entry exists -->
-    <pre><code>@article{s2c2026,
+          <details class="alg-stage stage-competence">
+            <summary><span class="stage-name">Training Stage 2: Filtered Multi-Agent RL</span>
+              <span class="stage-gist">learn to compete under the filter</span>
+            </summary>
+            <ol class="alg-lines" start="3">
+              <li>Initialize policy pool: <i class="cal">P</i> &larr; &empty;</li>
+              <li>Initialize task policies: (<i>&pi;</i><sup>1</sup>, <i>&pi;</i><sup>2</sup>) &larr; (<i>&pi;</i><span
+                  class="ss"><sup>1</sup><sub>init</sub></span>, <i>&pi;</i><span
+                  class="ss"><sup>2</sup><sub>init</sub></span>)</li>
+              <li><b>for</b> <i>k</i> = 1, 2, &hellip; <b>do</b></li>
+              <li class="ind">Collect rollouts with <span class="sc">Robust_Filter</span>; each player faces its
+                opponent using <i>&pi;</i><sup>&minus;<i>i</i></sup> or, with probability <i>p</i>, a policy in <i
+                  class="cal">P</i></li>
+              <li class="ind">Train <i>&pi;</i><sup>1</sup>, <i>&pi;</i><sup>2</sup> with <span class="sc">MARL</span>
+              </li>
+              <li class="ind">Periodically update <i class="cal">P</i> &larr; <i class="cal">P</i> &cup;
+                {<i>&pi;</i><sup>1</sup>, <i>&pi;</i><sup>2</sup>}</li>
+            </ol>
+          </details>
+
+          <details class="alg-stage stage-deploy">
+            <summary><span class="stage-name">Deployment for Ego Robot</span>
+              <span class="stage-gist">keep the same filter at runtime</span>
+            </summary>
+            <ol class="alg-lines" start="9">
+              <li><i>&pi;</i><sup><i>e</i></sup> &larr; <i>&pi;</i><sup>1</sup> or <i>&pi;</i><sup>2</sup></li>
+              <li><i>a</i><span class="ss"><sup><i>e</i></sup><sub><i>t</i></sub></span> &larr; <span
+                  class="sc">Robust_Filter</span>(<i>s</i><sub><i>t</i></sub>, <i>&pi;</i><sup><i>e</i></sup>)</li>
+            </ol>
+          </details>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="results">
+    <div class="container is-max-widescreen">
+      <h2 class="title is-3 has-text-centered">Results</h2>
+
+      <h3 class="title is-4">Symmetric touchdown game</h3>
+      <div class="fig"><img src="static/images/fig_sym_sheet.png"
+          alt="Symmetric game round-robin matrix, Elo ratings and empirical exploitability"></div>
+      <p class="fig-caption">Each cell corresponds to 3900 trials. <span class="m-s2c">S2C</span> outperforms all
+        baselines, achieving the highest Elo rating and lowest empirical exploitability.
+        <b>Left:</b> round-robin win-rate matrix; each cell reports the row method&rsquo;s win rate against the column
+        method, averaged over all pairs of training seeds.
+        <b>Top right:</b> Elo ratings computed jointly from all matches (higher is better).
+        <b>Bottom right:</b> empirical exploitability, the net win rate of the strongest evaluated opponent, averaged
+        across seeds (lower is better).
+        &dagger; marks baselines deployed with the <span class="m-s2c">S2C</span> safety filter.
+      </p>
+
+      <!-- simulation: one large clip + three tiles (layout after symskill.github.io) -->
+      <div class="result-block">
+        <div class="result-copy">
+          <span class="result-tag">Simulation</span>
+          <h3><span class="m-s2c">S2C</span> self-play in the asymmetric game</h3>
+          <p>The attacker starts on the left and must reach the green touchdown region before timeout; the defender wins
+            by holding the line until time runs out.
+            A robot loses immediately if it falls, leaves the field, or initiates a collision.
+            Here both robots run <span class="m-s2c">S2C</span>: the three rounds end in a timeout, a touchdown, and
+            another timeout.</p>
+          <p class="result-note">Simulation clips play at 1&times; and slow down at the end of each round.</p>
+        </div>
+        <div class="video-card"><video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/sim_asym_selfplay.mp4"></video></div>
+      </div>
+
+      <div class="video-grid">
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/sim_sym_s2c_vs_nom.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Symmetric game</span>
+            <h4><span class="m-s2c">S2C</span> vs. <span class="m-nom">Nom</span></h4>
+            <p>Both robots race for the touchdown line on the opponent&rsquo;s side. <span class="m-s2c">S2C</span>
+              starts on the left and gets there first in both rounds.</p>
+          </div>
+        </article>
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/sim_asym_s2c_attacker_vs_et.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Asymmetric game</span>
+            <h4><span class="m-s2c">S2C</span> attacker vs. <span class="m-et">ET</span> defender</h4>
+            <p><span class="m-s2c">S2C</span> dodges the defender and reaches the touchdown region.</p>
+          </div>
+        </article>
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/sim_asym_et_attacker_vs_s2c.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Asymmetric game</span>
+            <h4><span class="m-et">ET</span> attacker vs. <span class="m-s2c">S2C</span> defender</h4>
+            <p><span class="m-s2c">S2C</span> successfully defends against the opponent&rsquo;s attack. In both rounds,
+              <span class="m-et">ET</span> initiates a collision and loses.
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <!-- real world: S2C in both roles, then baseline failures -->
+      <div class="result-intro">
+        <span class="result-tag">Real world</span>
+        <h3>Unitree Go2 against a human opponent</h3>
+        <p>We deploy the policies on a Unitree Go2 in the asymmetric game against a human opponent, who moves a tracked
+          surrogate representing the opposing robot.
+          The human&rsquo;s strategies were never seen during training.
+          Top: <span class="m-s2c">S2C</span> as attacker and as defender. Bottom: safe RL baselines fail under
+          competitive human strategies.</p>
+      </div>
+      <div class="video-grid two">
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/s2c_attacker_touchdown.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Touchdown</span>
+            <h4><span class="m-s2c">S2C</span> attacker</h4>
+            <p><span class="m-s2c">S2C</span> feints past the human and reaches the touchdown line.</p>
+          </div>
+        </article>
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/s2c_defender_timeout.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Timeout</span>
+            <h4><span class="m-s2c">S2C</span> defender</h4>
+            <p><span class="m-s2c">S2C</span> tracks the human&rsquo;s rapid direction changes and holds the line until
+              timeout.</p>
+          </div>
+        </article>
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/et_attacker_oob.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Out of bounds</span>
+            <h4><span class="m-et">ET</span> attacker</h4>
+            <p><span class="m-et">ET</span> exits the field while turning.</p>
+          </div>
+        </article>
+        <article class="video-tile">
+          <video muted loop playsinline controls preload="metadata" data-inview
+            src="static/videos/cpo_attacker_collision.mp4"></video>
+          <div class="tile-body">
+            <span class="tile-tag">Collision</span>
+            <h4><span class="m-cpo">CPO</span> attacker</h4>
+            <p><span class="m-cpo">CPO</span> initiates a collision with the human.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX" hidden>
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <!-- TODO: replace once the arXiv entry exists -->
+      <pre><code>@article{s2c2026,
   title   = {Turning Safety into Competence: Minimally Exploitable Robot Policies via Safety-Filtered Reinforcement Learning},
-  author  = {TODO},
+  author  = {Wu, Ruihan and Yang, Rui and Oh, Donggeon David and Nguyen, Duy and Hu, Haimin},
   journal = {arXiv preprint arXiv:TODO},
   year    = {2026}
 }</code></pre>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content has-text-centered">
-          <p>This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>, adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.</p>
-        </div>
-      </div>
     </div>
-  </div>
-</footer>
+  </section>
 
-<script>
-  // result clips play while on screen and pause when scrolled away
-  (function () {
-    var vids = document.querySelectorAll('video[data-inview]');
-    function play(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-    if (!('IntersectionObserver' in window)) { vids.forEach(play); return; }
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (e.isIntersecting) play(e.target); else e.target.pause(); });
-    }, { threshold: 0.35 });
-    vids.forEach(function (v) { io.observe(v); });
-  })();
-</script>
+  <footer class="footer">
+    <div class="container has-text-centered">
+      <a class="footer-lab" href="https://alliance-ai.cs.jhu.edu/" target="_blank" rel="noopener">
+        <img src="static/images/alliance-logo-on-blue.png" alt="Alliance AI Lab logo" width="120">
+        <span class="footer-lab-name"><span>Alliance</span> AI Lab</span></a>
+      <p class="footer-sub">&copy; 2026 Alliance AI Lab &middot; Johns Hopkins University</p>
+      <p class="footer-credit">This page was built using the <a
+          href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page
+          Template</a>, adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // result clips play while on screen and pause when scrolled away
+    (function () {
+      var vids = document.querySelectorAll('video[data-inview]');
+      function play(v) { var p = v.play(); if (p && p.catch) p.catch(function () { }); }
+      if (!('IntersectionObserver' in window)) { vids.forEach(play); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) play(e.target); else e.target.pause(); });
+      }, { threshold: 0.35 });
+      vids.forEach(function (v) { io.observe(v); });
+    })();
+  </script>
 </body>
+
 </html>

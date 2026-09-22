@@ -15,6 +15,8 @@ body, .teaser, .subtitle, .content { font-family: 'Work Sans', 'Segoe UI', sans-
   font-family: 'Roboto Slab', Georgia, serif !important;
   color: var(--jhu-blue) !important;
 }
+.publication-title .t-safety { color: #68ACE5; font-weight: 700 !important; }
+.publication-title .t-competence { color: #F09937; font-weight: 700 !important; }
 .publication-authors { font-family: 'Work Sans', 'Segoe UI', sans-serif !important; }
 a { color: #004EB3; }
 a:hover { color: var(--jhu-blue); }
@@ -23,9 +25,9 @@ a:hover { color: var(--jhu-blue); }
 code, pre { font-family: 'Source Code Pro', 'Courier New', monospace; }
 .content p, .content li { color: #1A2030; }
 /* paper method colours (same as the paper figures and the video) */
-.m-s2c { color: #1F6F8B; font-weight: 700; } .m-et { color: #C4703D; font-weight: 600; }
-.m-nom { color: #8A8F96; font-weight: 600; } .m-cpo { color: #6B5B95; font-weight: 600; }
-.m-lag { color: #4F7942; font-weight: 600; }
+.m-s2c { color: #1F6F8B; font-weight: 700; } .m-et { color: #C4703D; }
+.m-nom { color: #8A8F96; } .m-cpo { color: #6B5B95; font-weight: 600; }
+.m-lag { color: #4F7942; }
 .fig { margin: 0 auto 0.5rem; } .fig img { width: 100%; border-radius: 6px; }
 .fig-caption { font-size: 0.95rem; color: #4a5268; margin-bottom: 2.5rem; }
 [hidden] { display: none !important; }
@@ -57,3 +59,75 @@ code, pre { font-family: 'Source Code Pro', 'Courier New', monospace; }
   box-shadow: 0 1px 4px rgba(0, 45, 114, 0.07); }
 .figure-title { font-size: 1.25rem; font-weight: 600; line-height: 1.2; margin: 0 0 1.25rem; }
 .figure-panel img { display: block; width: 100%; max-width: 620px; margin: 0 auto; }
+/* author row: light names with a thin underline, dark-red markers */
+.publication-authors .author-block { margin: 0 0.9rem; }
+.publication-authors a { font-weight: 400 !important; border-bottom: 1px solid #B8C2D6; }
+.publication-authors a::after { display: none; }
+.publication-authors .author-mark { color: #A51C30; font-weight: 600; font-size: 0.65em; margin-left: 1px; }
+.publication-authors .author-notes { font-size: 0.85rem; color: #4A5568; margin-top: 0.3rem; }
+.publication-authors .author-notes span { margin: 0 0.6rem; }
+/* key-insight callout below the teaser caption */
+.key-insight { max-width: 46rem; margin: 2rem auto 0; padding: 1rem 1.4rem; text-align: center;
+  font-size: 1.2rem; line-height: 1.5; color: #1A2030;
+  background: #EEF4FB; border-left: 4px solid #002D72; border-radius: 6px; }
+.key-insight strong { color: #002D72; font-weight: 600; }
+/* ── lab-site details (app.scss): JHU strip, gold accents, cards, footer ── */
+:root { --border-radius: 6px; --jhu-spirit: #68ACE5; --jhu-gold: #F1C400; --bg-soft: #F4F7FB; --bg-blue: #EBF3FB; --border: #CDD8EA; }
+/* section headings get the lab's short gold rule */
+.section > .container > .title.is-3::after, .section .column > .title.is-3::after {
+  content: ''; display: block; width: 46px; height: 3px; background: var(--jhu-gold); border-radius: 2px; margin: 0.8rem auto 0; }
+.hero.is-light { background: var(--bg-blue) !important; border-color: var(--border) !important; }
+.content a:hover { color: var(--jhu-gold); }
+/* buttons: lab radius instead of pills */
+.button.is-rounded { border-radius: 6px !important; }
+.button.is-dark:hover { box-shadow: 0 4px 16px rgba(0, 45, 114, 0.28); transform: translateY(-1px); }
+/* cards: lift + spirit-to-gold bar on hover */
+.video-card, .video-tile { position: relative; transition: box-shadow 0.26s, border-color 0.26s, transform 0.26s; }
+.video-card::after, .video-tile::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(to right, var(--jhu-spirit), var(--jhu-gold)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.video-card:hover, .video-tile:hover { transform: translateY(-4px);
+  box-shadow: 0 0 0 1px rgba(104, 172, 229, 0.55), 0 10px 36px rgba(0, 78, 179, 0.22); }
+.video-card:hover::after, .video-tile:hover::after { transform: scaleX(1); }
+/* key insight in the lab's thrust-card style */
+.key-insight { background: var(--bg-soft); border-left-color: var(--jhu-spirit); transition: border-left-color 0.2s; }
+.key-insight:hover { border-left-color: var(--jhu-gold); }
+/* footer: JHU blue as on the lab site */
+.footer { background: var(--jhu-blue) !important; border-top: none; padding: 2.5rem 1.5rem 2rem; }
+.footer a { color: var(--jhu-spirit) !important; }
+.footer a:hover { color: #fff !important; text-decoration: none; }
+.footer .footer-lab { font-family: 'Roboto Slab', Georgia, serif; font-size: 1.43rem; font-weight: 700; color: #fff !important; }
+.footer .footer-lab-name > span { color: #B0D0F4; }
+.footer .footer-sub { color: rgba(255, 255, 255, 0.45); font-size: 0.72rem; margin: 0.4rem 0 0.9rem; }
+.footer .footer-credit { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; }
+.footer .footer-lab { display: inline-flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+.footer .footer-lab img { width: 120px; height: auto; display: block; }
+.key-insight .tldr-label { display: inline-block; margin-right: 0.5rem; padding: 0.1rem 0.55rem; border-radius: 4px;
+  background: var(--jhu-blue); color: #fff; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; vertical-align: 0.12em; }
+/* pseudocode: Algorithm 1 as foldable stages (stage rails reuse the title's safety/competence colours) */
+.alg { max-width: 640px; margin: 0 auto; font-family: 'Times New Roman', Times, serif; font-size: 1.12rem; color: #1A2030; line-height: 1.45; }
+.alg-head { border-top: 2px solid #1A2030; border-bottom: 1px solid #1A2030; padding: 0.3rem 0; margin-bottom: 0.6rem; font-size: 1.2rem; }
+.alg-head .m-s2c { font-family: inherit; }
+.alg-input { margin: 0 0 0.9rem 0; padding-left: 3.2em; text-indent: -3.2em; }
+.alg .sc { font-variant: small-caps; }
+.alg .cal { font-family: 'Apple Chancery', 'Lucida Calligraphy', cursive; font-style: normal; }
+.alg sup, .alg sub { font-size: 0.7em; line-height: 0; }
+.alg .ss { text-indent: 0; display: inline-block; vertical-align: -0.42em; font-size: 0.7em; line-height: 1; margin-left: 1px; text-align: left; }
+.alg .ss > sup, .alg .ss > sub { display: block; font-size: 1em; line-height: 1.05; vertical-align: baseline; position: static; }
+.alg .fa-shield-alt, .alg svg.svg-inline--fa { font-size: 0.85em; color: #000; }
+.alg-stage { border-left: 4px solid var(--rail); background: var(--bg-soft); border-radius: 6px; margin: 0.55rem 0; transition: background 0.2s; }
+.alg-stage.stage-safety { --rail: #68ACE5; } .alg-stage.stage-competence { --rail: #F09937; } .alg-stage.stage-deploy { --rail: #002D72; }
+.alg-stage summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.2rem 0.8rem;
+  padding: 0.5rem 0.8rem; user-select: none; }
+.alg-stage summary::-webkit-details-marker { display: none; }
+.alg-stage summary::before { content: '\25B8'; color: var(--rail); display: inline-block; transition: transform 0.2s; }
+.alg-stage[open] summary::before { transform: rotate(90deg); }
+.alg-stage summary:hover { background: rgba(0, 45, 114, 0.04); }
+.stage-name { font-style: italic; }
+.stage-gist { margin-left: auto; font-family: 'Work Sans', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #64748B; }
+.alg-lines { margin: 0; padding: 0 0.9rem 0.6rem 3.1rem; }
+.alg-lines li { padding: 0.08rem 0; }
+.alg-lines li::marker { font-size: 0.9em; color: #64748B; content: counter(list-item) ":  "; }
+.alg-lines li.ind { margin-left: 1.5em; }
+.alg-head + .alg-input ~ .alg-stage:last-child { margin-bottom: 0; }
+@media screen and (max-width: 600px) { .alg { font-size: 1rem; } .stage-gist { margin-left: 0; } .alg-lines { padding-left: 2.4rem; } }
