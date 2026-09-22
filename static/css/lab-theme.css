@@ -28,8 +28,6 @@ code, pre { font-family: 'Source Code Pro', 'Courier New', monospace; }
 .m-lag { color: #4F7942; font-weight: 600; }
 .fig { margin: 0 auto 0.5rem; } .fig img { width: 100%; border-radius: 6px; }
 .fig-caption { font-size: 0.95rem; color: #4a5268; margin-bottom: 2.5rem; }
-.theorem { border-left: 4px solid #002D72; background: #f3f6fb; padding: 1.2rem 1.5rem; border-radius: 6px; margin: 1.5rem 0 2rem; }
-.theorem .label { font-family: 'Roboto Slab', Georgia, serif; color: #002D72; font-weight: 700; margin-bottom: 0.4rem; }
 [hidden] { display: none !important; }
 /* results: layout after symskill.github.io, in the lab palette
    (lab app.scss: --bg-blue #EBF3FB, --border #CDD8EA, --jhu-spirit #68ACE5, --muted #64748B, card radius 10px) */
