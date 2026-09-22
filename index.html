@@ -94,8 +94,8 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container is-max-desktop">
+<section class="section" id="results">
+  <div class="container is-max-widescreen">
     <h2 class="title is-3 has-text-centered">Results</h2>
 
     <h3 class="title is-4">Symmetric touchdown game</h3>
@@ -105,72 +105,89 @@
       <b>Top right:</b> Elo ratings computed jointly from all matches (higher is better).
       <b>Bottom right:</b> empirical exploitability, the net win rate of the strongest evaluated opponent, averaged across seeds (lower is better).
       &dagger; marks baselines deployed with the <span class="m-s2c">S2C</span> safety filter.</p>
-    <!-- PLACEHOLDER clip: replace with the symmetric-game matrix animation / S2C-vs-baseline touchdown -->
-    <video autoplay muted loop playsinline width="100%" src="static/videos/s2c_defender_timeout.mp4"></video>
 
-    <h3 class="title is-4" style="margin-top:2.5rem">Round-robin results in simulation</h3>
-    <div class="table-container">
-      <table class="table is-fullwidth is-hoverable results">
-        <thead>
-          <tr><th rowspan="2">Method</th><th colspan="2">Asymmetric game</th><th colspan="2">Symmetric game</th></tr>
-          <tr><th>WR (%) &uarr;</th><th>SR (%) &uarr;</th><th>WR (%) &uarr;</th><th>SR (%) &uarr;</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="m-s2c">S2C</td><td><b>77.5 &plusmn; 2.8</b></td><td><b>87.9 &plusmn; 2.4</b></td><td><b>76.5 &plusmn; 2.0</b></td><td>90.0 &plusmn; 1.9</td></tr>
-          <tr><td class="m-et">ET</td><td>68.1 &plusmn; 12.5</td><td>69.7 &plusmn; 18.5</td><td>56.0 &plusmn; 8.7</td><td>84.2 &plusmn; 4.4</td></tr>
-          <tr><td class="m-nom">Nom</td><td>51.4 &plusmn; 6.3</td><td>68.9 &plusmn; 8.6</td><td>52.8 &plusmn; 11.4</td><td>75.9 &plusmn; 10.8</td></tr>
-          <tr><td class="m-cpo">CPO</td><td>22.3 &plusmn; 2.3</td><td>46.9 &plusmn; 5.2</td><td>37.6 &plusmn; 6.6</td><td>65.3 &plusmn; 5.7</td></tr>
-          <tr><td class="m-lag">Lag</td><td>63.0 &plusmn; 12.9</td><td>67.6 &plusmn; 18.2</td><td>37.2 &plusmn; 6.3</td><td>69.1 &plusmn; 5.4</td></tr>
-          <tr><td class="m-et">ET&dagger;</td><td>46.0 &plusmn; 3.4</td><td>69.1 &plusmn; 7.6</td><td>51.3 &plusmn; 5.5</td><td>87.6 &plusmn; 3.6</td></tr>
-          <tr><td class="m-nom">Nom&dagger;</td><td>41.6 &plusmn; 2.4</td><td>76.6 &plusmn; 3.0</td><td>53.5 &plusmn; 7.8</td><td>89.2 &plusmn; 5.2</td></tr>
-          <tr><td class="m-cpo">CPO&dagger;</td><td>30.6 &plusmn; 2.3</td><td>71.4 &plusmn; 4.4</td><td>40.5 &plusmn; 8.6</td><td>84.3 &plusmn; 7.6</td></tr>
-          <tr><td class="m-lag">Lag&dagger;</td><td>49.5 &plusmn; 5.0</td><td>75.7 &plusmn; 5.4</td><td>44.6 &plusmn; 7.9</td><td><b>91.5 &plusmn; 2.2</b></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="table-note">Each row corresponds to 31200 games. WR: win rate. SR: safe rate.</p>
-
-    <div><!-- asymmetric game -->
-    <h3 class="title is-4">Asymmetric touchdown game</h3>
-    <!-- PLACEHOLDER clip: replace with the asymmetric-game matrix animation / attacker-defender clips -->
-    <video autoplay muted loop playsinline width="100%" src="static/videos/s2c_attacker_touchdown.mp4"></video>
-
-    </div>
-    <h3 class="title is-4" style="margin-top:2.5rem">Hardware: S2C vs. a human opponent</h3>
-    <div class="columns">
-      <div class="column"><video autoplay muted loop playsinline width="100%" src="static/videos/s2c_attacker_touchdown.mp4"></video>
-        <p class="fig-caption has-text-centered" style="margin-bottom:0"><span class="m-s2c">S2C</span> attacking</p></div>
-      <div class="column"><video autoplay muted loop playsinline width="100%" src="static/videos/s2c_defender_timeout.mp4"></video>
-        <p class="fig-caption has-text-centered" style="margin-bottom:0"><span class="m-s2c">S2C</span> defending</p></div>
-    </div>
-    <br>
-    <div>
-      <div>
-        <p class="has-text-centered"><b>Robot attacking</b></p>
-        <div class="table-container"><table class="table is-fullwidth is-hoverable results">
-          <thead><tr><th>Method</th><th>TDR (%) &uarr;</th><th>SR (%) &uarr;</th><th>HPS (m/s)</th><th>HPA (m/s<sup>2</sup>)</th></tr></thead>
-          <tbody>
-            <tr><td class="m-s2c">S2C</td><td><b>70.0</b></td><td><b>80.0</b></td><td>2.14 &plusmn; 0.36</td><td>5.83 &plusmn; 1.30</td></tr>
-            <tr><td class="m-et">ET</td><td>50.0</td><td>60.0</td><td>1.86 &plusmn; 0.26</td><td>3.17 &plusmn; 1.03</td></tr>
-            <tr><td class="m-nom">Nom</td><td>30.0</td><td>30.0</td><td>1.46 &plusmn; 0.19</td><td>2.35 &plusmn; 1.23</td></tr>
-            <tr><td class="m-cpo">CPO</td><td>0.0</td><td>0.0</td><td>1.30 &plusmn; 0.38</td><td>2.37 &plusmn; 0.73</td></tr>
-            <tr><td class="m-lag">Lag</td><td>20.0</td><td>20.0</td><td>0.74 &plusmn; 0.43</td><td>1.04 &plusmn; 0.58</td></tr>
-          </tbody></table></div>
+    <!-- simulation: one large clip + three tiles (layout after symskill.github.io) -->
+    <div class="result-block">
+      <div class="result-copy">
+        <span class="result-tag">Simulation</span>
+        <h3><span class="m-s2c">S2C</span> self-play in the asymmetric game</h3>
+        <p>The attacker starts on the left and must reach the green touchdown region before timeout; the defender wins by holding the line until time runs out.
+          A robot loses immediately if it falls, leaves the field, or initiates a collision.
+          Here both robots run <span class="m-s2c">S2C</span>: the three rounds end in a timeout, a touchdown, and another timeout.</p>
+        <p class="result-note">Simulation clips play at 1&times; and slow down at the end of each round.</p>
       </div>
-      <div>
-        <p class="has-text-centered"><b>Robot defending</b></p>
-        <div class="table-container"><table class="table is-fullwidth is-hoverable results">
-          <thead><tr><th>Method</th><th>TOR (%) &uarr;</th><th>SR (%) &uarr;</th><th>HPS (m/s)</th><th>HPA (m/s<sup>2</sup>)</th></tr></thead>
-          <tbody>
-            <tr><td class="m-s2c">S2C</td><td><b>70.0</b></td><td>90.0</td><td>2.40 &plusmn; 0.38</td><td>4.31 &plusmn; 1.14</td></tr>
-            <tr><td class="m-et">ET</td><td>60.0</td><td>80.0</td><td>2.07 &plusmn; 0.16</td><td>4.34 &plusmn; 1.21</td></tr>
-            <tr><td class="m-nom">Nom</td><td>40.0</td><td>50.0</td><td>1.22 &plusmn; 0.15</td><td>2.46 &plusmn; 0.79</td></tr>
-            <tr><td class="m-cpo">CPO</td><td>0.0</td><td><b>100.0</b></td><td>1.30 &plusmn; 0.22</td><td>2.15 &plusmn; 0.70</td></tr>
-            <tr><td class="m-lag">Lag</td><td>10.0</td><td>60.0</td><td>1.10 &plusmn; 0.21</td><td>1.85 &plusmn; 0.66</td></tr>
-          </tbody></table></div>
-      </div>
+      <div class="video-card"><video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_asym_selfplay.mp4"></video></div>
     </div>
-    <p class="table-note">Each row corresponds to ten trials. TDR/TOR: touchdown/timeout rate. SR: safe rate. HPS: human&rsquo;s peak speed. HPA: human&rsquo;s peak acceleration.</p>
+
+    <div class="video-grid">
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_sym_s2c_vs_nom.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Symmetric game</span>
+          <h4><span class="m-s2c">S2C</span> vs. <span class="m-nom">Nom</span></h4>
+          <p>Both robots race for the touchdown line on the opponent&rsquo;s side. <span class="m-s2c">S2C</span> starts on the left and gets there first in both rounds.</p>
+        </div>
+      </article>
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_asym_s2c_attacker_vs_et.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Asymmetric game</span>
+          <h4><span class="m-s2c">S2C</span> attacker vs. <span class="m-et">ET</span> defender</h4>
+          <p><span class="m-s2c">S2C</span> dodges the defender and reaches the touchdown region.</p>
+        </div>
+      </article>
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/sim_asym_et_attacker_vs_s2c.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Asymmetric game</span>
+          <h4><span class="m-et">ET</span> attacker vs. <span class="m-s2c">S2C</span> defender</h4>
+          <p><span class="m-s2c">S2C</span> moves into the attacker&rsquo;s path. In both rounds <span class="m-et">ET</span> runs into it, initiating a collision, and loses.</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- real world: S2C in both roles, then baseline failures -->
+    <div class="result-intro">
+      <span class="result-tag">Real world</span>
+      <h3>Unitree Go2 against a human opponent</h3>
+      <p>We deploy the policies on a Unitree Go2 in the asymmetric game against a human opponent, who moves a tracked surrogate standing in for the opposing robot.
+        The human&rsquo;s strategies were never seen during training.
+        Top: <span class="m-s2c">S2C</span> as attacker and as defender. Bottom: safe RL baselines fail under competitive human strategies.</p>
+    </div>
+    <div class="video-grid two">
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/s2c_attacker_touchdown.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Touchdown</span>
+          <h4><span class="m-s2c">S2C</span> attacker</h4>
+          <p><span class="m-s2c">S2C</span> feints past the human and reaches the touchdown line.</p>
+        </div>
+      </article>
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/s2c_defender_timeout.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Timeout</span>
+          <h4><span class="m-s2c">S2C</span> defender</h4>
+          <p><span class="m-s2c">S2C</span> tracks the human&rsquo;s rapid direction changes and holds the line until timeout.</p>
+        </div>
+      </article>
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/et_attacker_oob.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Out of bounds</span>
+          <h4><span class="m-et">ET</span> attacker</h4>
+          <p><span class="m-et">ET</span> exits the field while turning.</p>
+        </div>
+      </article>
+      <article class="video-tile">
+        <video muted loop playsinline controls preload="metadata" data-inview src="static/videos/cpo_attacker_collision.mp4"></video>
+        <div class="tile-body">
+          <span class="tile-tag">Collision</span>
+          <h4><span class="m-cpo">CPO</span> attacker</h4>
+          <p><span class="m-cpo">CPO</span> collides with the human.</p>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
 
@@ -199,5 +216,17 @@
   </div>
 </footer>
 
+<script>
+  // result clips play while on screen and pause when scrolled away
+  (function () {
+    var vids = document.querySelectorAll('video[data-inview]');
+    function play(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (!('IntersectionObserver' in window)) { vids.forEach(play); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) play(e.target); else e.target.pause(); });
+    }, { threshold: 0.35 });
+    vids.forEach(function (v) { io.observe(v); });
+  })();
+</script>
 </body>
 </html>
