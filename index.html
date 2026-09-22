@@ -29,10 +29,8 @@
           <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a></span>
         <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
           <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a></span>
-        <span class="link-block" hidden><a href="#video" class="external-link button is-normal is-rounded is-dark">
+        <span class="link-block"><a href="#video" class="external-link button is-normal is-rounded is-dark">
           <span class="icon"><i class="fas fa-video"></i></span><span>Video</span></a></span>
-        <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
-          <span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a></span>
       </div>
     </div>
   </div>
@@ -49,10 +47,11 @@
   </div>
 </section>
 
-<section class="section" id="video" hidden>
+<section class="section" id="video">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Video</h2>
-    <!-- TODO: <video controls width="100%" src="static/videos/s2c_video.mp4"></video>  (keep the file small, e.g. < 20 MB) -->
+    <!-- PLACEHOLDER clip: replace with the 3-min supplementary video (keep it small, e.g. < 20 MB) -->
+    <video controls preload="metadata" playsinline width="100%" src="static/videos/s2c_attacker_touchdown.mp4"></video>
   </div>
 </section>
 
@@ -107,7 +106,8 @@
       <b>Top right:</b> Elo ratings computed jointly from all matches (higher is better).
       <b>Bottom right:</b> empirical exploitability, the net win rate of the strongest evaluated opponent, averaged across seeds (lower is better).
       &dagger; marks baselines deployed with the <span class="m-s2c">S2C</span> safety filter.</p>
-    <!-- TODO: matrix animation / S2C-vs-baseline touchdown clip, e.g. <video autoplay muted loop playsinline width="100%" src="static/videos/sym_matrix.mp4"></video> -->
+    <!-- PLACEHOLDER clip: replace with the symmetric-game matrix animation / S2C-vs-baseline touchdown -->
+    <video autoplay muted loop playsinline width="100%" src="static/videos/s2c_defender_timeout.mp4"></video>
     <br>
     <div class="columns is-vcentered">
       <div class="column is-5"><div class="fig"><img src="static/images/fig4_safety_vs_win.png" alt="Safety versus win rate in symmetric touchdown games"></div></div>
@@ -138,13 +138,19 @@
     </div>
     <p class="table-note">Each row corresponds to 31200 games. WR: win rate. SR: safe rate.</p>
 
-    <div hidden><!-- asymmetric game videos: show once they exist -->
+    <div><!-- asymmetric game -->
     <h3 class="title is-4">Asymmetric touchdown game</h3>
-    <!-- TODO: asymmetric matrix animation / attacker-defender clips -->
+    <!-- PLACEHOLDER clip: replace with the asymmetric-game matrix animation / attacker-defender clips -->
+    <video autoplay muted loop playsinline width="100%" src="static/videos/s2c_attacker_touchdown.mp4"></video>
 
     </div>
     <h3 class="title is-4" style="margin-top:2.5rem">Hardware: S2C vs. a human opponent</h3>
-    <!-- TODO: real-robot clips -->
+    <div class="columns">
+      <div class="column"><video autoplay muted loop playsinline width="100%" src="static/videos/s2c_attacker_touchdown.mp4"></video>
+        <p class="fig-caption has-text-centered" style="margin-bottom:0"><span class="m-s2c">S2C</span> attacking</p></div>
+      <div class="column"><video autoplay muted loop playsinline width="100%" src="static/videos/s2c_defender_timeout.mp4"></video>
+        <p class="fig-caption has-text-centered" style="margin-bottom:0"><span class="m-s2c">S2C</span> defending</p></div>
+    </div>
     <br>
     <div>
       <div>
