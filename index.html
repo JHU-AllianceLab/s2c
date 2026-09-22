@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>S2C: Turning Safety into Competence</title>
+  <meta name="description" content="S2C separates safety-filter synthesis from competitive task learning: a robust safety filter is learned first and embedded in the environment for multi-agent RL, yielding minimally exploitable robot policies.">
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;600;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/lab-theme.css">
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <h1 class="title is-1 publication-title">Turning Safety into Competence:<br>Minimally Exploitable Robot Policies via Safety-Filtered Reinforcement Learning</h1>
+      <!-- TODO: authors (with personal links) and affiliations -->
+      <div class="publication-links">
+        <!-- TODO: fill the hrefs; remove a button that has no target yet -->
+        <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
+          <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span></a></span>
+        <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
+          <span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a></span>
+        <span class="link-block" hidden><a href="#video" class="external-link button is-normal is-rounded is-dark">
+          <span class="icon"><i class="fas fa-video"></i></span><span>Video</span></a></span>
+        <span class="link-block"><a href="#" class="external-link button is-normal is-rounded is-dark">
+          <span class="icon"><i class="fab fa-github"></i></span><span>Code</span></a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="fig"><img src="static/images/head_fig_new.png" alt="S2C and safe RL baselines in the hardware touchdown game against a human opponent"></div>
+    <p class="fig-caption has-text-centered"><span class="m-s2c">S2C</span> enforces robot safety without sacrificing competitive performance.
+      A quadrupedal robot (orange trajectory) plays a touchdown game against a human opponent (grey trajectory).
+      <b>Top:</b> as attacker, S2C feints past the human to score a touchdown; as defender, it tracks rapid human direction changes and holds the line.
+      <b>Bottom:</b> safe RL baselines fail under competitive opponent strategies &mdash; the <span class="m-et">ET</span> attacker exits the field while turning,
+      the <span class="m-cpo">CPO</span> attacker collides with the human, and the <span class="m-et">ET</span> defender falls while pursuing the human.</p>
+  </div>
+</section>
+
+<section class="section" id="video" hidden>
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Video</h2>
+    <!-- TODO: <video controls width="100%" src="static/videos/s2c_video.mp4"></video>  (keep the file small, e.g. < 20 MB) -->
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>Robots deployed for competitive tasks must outmaneuver their opponents without sacrificing safety.
+          Existing approaches, including safe reinforcement learning (RL), train a single policy to achieve task success and avoid failures simultaneously.
+          This coupling can complicate training and leave the learned policy exploitable by deliberate attacks.
+          We propose Safety to Competence (S2C), a two-stage RL framework that separates safety synthesis from competitive task learning.
+          We formulate competitive robot interactions as safety-critical Markov games and prove that perfect filtering preserves policy non-exploitability when all players commit to safe maneuvers.
+          S2C learns a robust safety filter via adversarial RL, embeds it in the environment during task policy training, and retains the same filter at deployment.
+          In simulated quadruped touchdown games, S2C outperforms four safe RL baselines and their filtered variants, achieving the highest win rate and Elo rating, and the lowest empirical exploitability.
+          Hardware stress tests against a human opponent confirm S2C&rsquo;s competence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
+    <div class="theorem">
+      <div class="label">Core Theorem</div>
+      With perfect safety filters, an equilibrium of the filtered game remains non-exploitable when players commit to safe behaviors:
+      separating safety from task objectives does not sacrifice robustness against a best-responding opponent.
+    </div>
+    <div class="fig"><img src="static/images/overview_new.png" alt="S2C training and deployment pipeline"></div>
+    <p class="fig-caption has-text-centered">Overview of the <span class="m-s2c">S2C</span> training and deployment pipeline, illustrated with the asymmetric touchdown game.</p>
+    <div class="content">
+      <ul>
+        <li><b>Stage 1 &mdash; robust safety filter synthesis.</b> For each player, a safety critic and a safety fallback policy are learned with HJ-based adversarial RL against a worst-case opponent.</li>
+        <li><b>Stage 2 &mdash; task policy training in the filtered environment.</b> Both players&rsquo; task policies are trained with multi-agent RL while the frozen filter supervises every action, so the policies learn to cooperate with the filter without extra reward terms.</li>
+        <li><b>Deployment.</b> Each task policy runs with the same filter it was trained with; the filter passes safe actions through unchanged and overrides the rest.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+
+    <h3 class="title is-4">Symmetric touchdown game</h3>
+    <div class="fig"><img src="static/images/fig_sym_sheet.png" alt="Symmetric game round-robin matrix, Elo ratings and empirical exploitability"></div>
+    <p class="fig-caption">Each cell corresponds to 3900 trials. <span class="m-s2c">S2C</span> outperforms all baselines, achieving the highest Elo rating and lowest empirical exploitability.
+      <b>Left:</b> round-robin win-rate matrix; each cell reports the row method&rsquo;s win rate against the column method, averaged over all pairs of training seeds.
+      <b>Top right:</b> Elo ratings computed jointly from all matches (higher is better).
+      <b>Bottom right:</b> empirical exploitability, the net win rate of the strongest evaluated opponent, averaged across seeds (lower is better).
+      &dagger; marks baselines deployed with the <span class="m-s2c">S2C</span> safety filter.</p>
+    <!-- TODO: matrix animation / S2C-vs-baseline touchdown clip, e.g. <video autoplay muted loop playsinline width="100%" src="static/videos/sym_matrix.mp4"></video> -->
+    <br>
+    <div class="columns is-vcentered">
+      <div class="column is-5"><div class="fig"><img src="static/images/fig4_safety_vs_win.png" alt="Safety versus win rate in symmetric touchdown games"></div></div>
+      <div class="column"><p class="fig-caption" style="margin-bottom:0">Safety versus win rate in symmetric touchdown games.
+        Deploying the <span class="m-s2c">S2C</span> filter on the baselines (&dagger;) raises their safe rates by up to 22.4 pp, but their win rates change by at most 7.4 pp:
+        a safety filter alone does not grant strategic competence &mdash; competence must be co-learned within the filtered environment.</p></div>
+    </div>
+
+    <h3 class="title is-4" style="margin-top:2.5rem">Round-robin results in simulation</h3>
+    <div class="table-container">
+      <table class="table is-fullwidth is-hoverable results">
+        <thead>
+          <tr><th rowspan="2">Method</th><th colspan="2">Asymmetric game</th><th colspan="2">Symmetric game</th></tr>
+          <tr><th>WR (%) &uarr;</th><th>SR (%) &uarr;</th><th>WR (%) &uarr;</th><th>SR (%) &uarr;</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="m-s2c">S2C</td><td><b>77.5 &plusmn; 2.8</b></td><td><b>87.9 &plusmn; 2.4</b></td><td><b>76.5 &plusmn; 2.0</b></td><td>90.0 &plusmn; 1.9</td></tr>
+          <tr><td class="m-et">ET</td><td>68.1 &plusmn; 12.5</td><td>69.7 &plusmn; 18.5</td><td>56.0 &plusmn; 8.7</td><td>84.2 &plusmn; 4.4</td></tr>
+          <tr><td class="m-nom">Nom</td><td>51.4 &plusmn; 6.3</td><td>68.9 &plusmn; 8.6</td><td>52.8 &plusmn; 11.4</td><td>75.9 &plusmn; 10.8</td></tr>
+          <tr><td class="m-cpo">CPO</td><td>22.3 &plusmn; 2.3</td><td>46.9 &plusmn; 5.2</td><td>37.6 &plusmn; 6.6</td><td>65.3 &plusmn; 5.7</td></tr>
+          <tr><td class="m-lag">Lag</td><td>63.0 &plusmn; 12.9</td><td>67.6 &plusmn; 18.2</td><td>37.2 &plusmn; 6.3</td><td>69.1 &plusmn; 5.4</td></tr>
+          <tr><td class="m-et">ET&dagger;</td><td>46.0 &plusmn; 3.4</td><td>69.1 &plusmn; 7.6</td><td>51.3 &plusmn; 5.5</td><td>87.6 &plusmn; 3.6</td></tr>
+          <tr><td class="m-nom">Nom&dagger;</td><td>41.6 &plusmn; 2.4</td><td>76.6 &plusmn; 3.0</td><td>53.5 &plusmn; 7.8</td><td>89.2 &plusmn; 5.2</td></tr>
+          <tr><td class="m-cpo">CPO&dagger;</td><td>30.6 &plusmn; 2.3</td><td>71.4 &plusmn; 4.4</td><td>40.5 &plusmn; 8.6</td><td>84.3 &plusmn; 7.6</td></tr>
+          <tr><td class="m-lag">Lag&dagger;</td><td>49.5 &plusmn; 5.0</td><td>75.7 &plusmn; 5.4</td><td>44.6 &plusmn; 7.9</td><td><b>91.5 &plusmn; 2.2</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Each row corresponds to 31200 games. WR: win rate. SR: safe rate.</p>
+
+    <div hidden><!-- asymmetric game videos: show once they exist -->
+    <h3 class="title is-4">Asymmetric touchdown game</h3>
+    <!-- TODO: asymmetric matrix animation / attacker-defender clips -->
+
+    </div>
+    <h3 class="title is-4" style="margin-top:2.5rem">Hardware: S2C vs. a human opponent</h3>
+    <!-- TODO: real-robot clips -->
+    <br>
+    <div>
+      <div>
+        <p class="has-text-centered"><b>Robot attacking</b></p>
+        <div class="table-container"><table class="table is-fullwidth is-hoverable results">
+          <thead><tr><th>Method</th><th>TDR (%) &uarr;</th><th>SR (%) &uarr;</th><th>HPS (m/s)</th><th>HPA (m/s<sup>2</sup>)</th></tr></thead>
+          <tbody>
+            <tr><td class="m-s2c">S2C</td><td><b>70.0</b></td><td><b>80.0</b></td><td>2.14 &plusmn; 0.36</td><td>5.83 &plusmn; 1.30</td></tr>
+            <tr><td class="m-et">ET</td><td>50.0</td><td>60.0</td><td>1.86 &plusmn; 0.26</td><td>3.17 &plusmn; 1.03</td></tr>
+            <tr><td class="m-nom">Nom</td><td>30.0</td><td>30.0</td><td>1.46 &plusmn; 0.19</td><td>2.35 &plusmn; 1.23</td></tr>
+            <tr><td class="m-cpo">CPO</td><td>0.0</td><td>0.0</td><td>1.30 &plusmn; 0.38</td><td>2.37 &plusmn; 0.73</td></tr>
+            <tr><td class="m-lag">Lag</td><td>20.0</td><td>20.0</td><td>0.74 &plusmn; 0.43</td><td>1.04 &plusmn; 0.58</td></tr>
+          </tbody></table></div>
+      </div>
+      <div>
+        <p class="has-text-centered"><b>Robot defending</b></p>
+        <div class="table-container"><table class="table is-fullwidth is-hoverable results">
+          <thead><tr><th>Method</th><th>TOR (%) &uarr;</th><th>SR (%) &uarr;</th><th>HPS (m/s)</th><th>HPA (m/s<sup>2</sup>)</th></tr></thead>
+          <tbody>
+            <tr><td class="m-s2c">S2C</td><td><b>70.0</b></td><td>90.0</td><td>2.40 &plusmn; 0.38</td><td>4.31 &plusmn; 1.14</td></tr>
+            <tr><td class="m-et">ET</td><td>60.0</td><td>80.0</td><td>2.07 &plusmn; 0.16</td><td>4.34 &plusmn; 1.21</td></tr>
+            <tr><td class="m-nom">Nom</td><td>40.0</td><td>50.0</td><td>1.22 &plusmn; 0.15</td><td>2.46 &plusmn; 0.79</td></tr>
+            <tr><td class="m-cpo">CPO</td><td>0.0</td><td><b>100.0</b></td><td>1.30 &plusmn; 0.22</td><td>2.15 &plusmn; 0.70</td></tr>
+            <tr><td class="m-lag">Lag</td><td>10.0</td><td>60.0</td><td>1.10 &plusmn; 0.21</td><td>1.85 &plusmn; 0.66</td></tr>
+          </tbody></table></div>
+      </div>
+    </div>
+    <p class="table-note">Each row corresponds to ten trials. TDR/TOR: touchdown/timeout rate. SR: safe rate. HPS: human&rsquo;s peak speed. HPA: human&rsquo;s peak acceleration.</p>
+  </div>
+</section>
+
+<section class="section" id="BibTeX" hidden>
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- TODO: replace once the arXiv entry exists -->
+    <pre><code>@article{s2c2026,
+  title   = {Turning Safety into Competence: Minimally Exploitable Robot Policies via Safety-Filtered Reinforcement Learning},
+  author  = {TODO},
+  journal = {arXiv preprint arXiv:TODO},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>, adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

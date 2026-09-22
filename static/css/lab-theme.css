@@ -1,0 +1,39 @@
+/* JHU Alliance AI Lab look: fonts + colours copied from
+   github.com/JHU-AllianceLab/jhu-alliancelab.github.io  assets/css/app.scss
+   Loaded after index.css; the template theme is driven by CSS variables + !important,
+   so the variables are re-pointed here and the !important rules are matched. */
+:root {
+  --jhu-blue: #002D72;
+  --primary-color: #002D72;       /* template accent  -> JHU blue   */
+  --primary-hover: #004EB3;       /*                  -> lab link   */
+  --accent-color: #004EB3;
+  --text-primary: #1A2030;        /* lab $text */
+  --gradient-accent: linear-gradient(135deg, #002D72 0%, #004EB3 100%);   /* title underline */
+}
+body, .teaser, .subtitle, .content { font-family: 'Work Sans', 'Segoe UI', sans-serif; color: #1A2030; }
+.publication-title, .title.is-3, h1, h2, h3, h4, .title {
+  font-family: 'Roboto Slab', Georgia, serif !important;
+  color: var(--jhu-blue) !important;
+}
+.publication-authors { font-family: 'Work Sans', 'Segoe UI', sans-serif !important; }
+a { color: #004EB3; }
+a:hover { color: var(--jhu-blue); }
+.button.is-dark { background: var(--jhu-blue) !important; }
+.button.is-dark:hover { background: #004EB3 !important; }
+code, pre { font-family: 'Source Code Pro', 'Courier New', monospace; }
+.placeholder { border: 2px dashed #b8c2d3; border-radius: 10px; padding: 3rem 1rem; color: #6b7690; text-align: center; }
+.content p, .content li { color: #1A2030; }
+/* paper method colours (same as the paper figures and the video) */
+.m-s2c { color: #1F6F8B; font-weight: 700; } .m-et { color: #C4703D; font-weight: 600; }
+.m-nom { color: #8A8F96; font-weight: 600; } .m-cpo { color: #6B5B95; font-weight: 600; }
+.m-lag { color: #4F7942; font-weight: 600; }
+.fig { margin: 0 auto 0.5rem; } .fig img { width: 100%; border-radius: 6px; }
+.fig-caption { font-size: 0.95rem; color: #4a5268; margin-bottom: 2.5rem; }
+.theorem { border-left: 4px solid #002D72; background: #f3f6fb; padding: 1.2rem 1.5rem; border-radius: 6px; margin: 1.5rem 0 2rem; }
+.theorem .label { font-family: 'Roboto Slab', Georgia, serif; color: #002D72; font-weight: 700; margin-bottom: 0.4rem; }
+table.results { width: 100%; font-size: 0.95rem; }
+table.results th, table.results td { text-align: center !important; vertical-align: middle !important; }
+table.results td:first-child, table.results th:first-child { text-align: left !important; }
+.table-note { font-size: 0.85rem; color: #6b7690; margin-top: -0.8rem; margin-bottom: 2rem; }
+table.results td, table.results th { white-space: nowrap; }
+[hidden] { display: none !important; }
