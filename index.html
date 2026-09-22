@@ -79,13 +79,6 @@
     <h2 class="title is-3 has-text-centered">Method</h2>
     <div class="fig"><img src="static/images/overview_new.png" alt="S2C training and deployment pipeline"></div>
     <p class="fig-caption has-text-centered">Overview of the <span class="m-s2c">S2C</span> training and deployment pipeline, illustrated with the asymmetric touchdown game.</p>
-    <div class="content">
-      <ul>
-        <li><b>Stage 1 &mdash; robust safety filter synthesis.</b> For each player, a safety critic and a safety fallback policy are learned with HJ-based adversarial RL against a worst-case opponent.</li>
-        <li><b>Stage 2 &mdash; task policy training in the filtered environment.</b> Both players&rsquo; task policies are trained with multi-agent RL while the frozen filter supervises every action, so the policies learn to cooperate with the filter without extra reward terms.</li>
-        <li><b>Deployment.</b> Each task policy runs with the same filter it was trained with; the filter passes safe actions through unchanged and overrides the rest.</li>
-      </ul>
-    </div>
     <!-- Algorithm 1 as typeset in the final PDF (page 5), layout after symskill.github.io -->
     <figure class="figure-panel">
       <h3 class="figure-title">Pseudocode</h3>
@@ -150,7 +143,7 @@
     <div class="result-intro">
       <span class="result-tag">Real world</span>
       <h3>Unitree Go2 against a human opponent</h3>
-      <p>We deploy the policies on a Unitree Go2 in the asymmetric game against a human opponent, who moves a tracked surrogate standing in for the opposing robot.
+      <p>We deploy the policies on a Unitree Go2 in the asymmetric game against a human opponent, who moves a tracked surrogate representing the opposing robot.
         The human&rsquo;s strategies were never seen during training.
         Top: <span class="m-s2c">S2C</span> as attacker and as defender. Bottom: safe RL baselines fail under competitive human strategies.</p>
     </div>
