@@ -39,7 +39,7 @@ code, pre { font-family: 'Source Code Pro', 'Courier New', monospace; }
 .result-copy h3, .result-intro h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.25; margin: 0.8rem 0 0.7rem; }
 .result-copy p, .result-intro p { line-height: 1.65; }
 .result-copy .result-note { color: #64748B; font-size: 0.9rem; margin-top: 0.8rem; }
-.result-intro { max-width: 820px; margin: 4rem 0 0; }
+.result-intro { margin: 4rem 0 0; }
 .video-card, .video-tile { background: #fff; border: 1px solid #CDD8EA; border-radius: 10px; overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 45, 114, 0.07); transition: box-shadow 0.26s, border-color 0.26s; }
 .video-card:hover, .video-tile:hover { box-shadow: 0 4px 20px rgba(0, 45, 114, 0.11); border-color: #68ACE5; }
