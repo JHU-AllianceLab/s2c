@@ -131,3 +131,12 @@ code, pre { font-family: 'Source Code Pro', 'Courier New', monospace; }
 .alg-lines li.ind { margin-left: 1.5em; }
 .alg-head + .alg-input ~ .alg-stage:last-child { margin-bottom: 0; }
 @media screen and (max-width: 600px) { .alg { font-size: 1rem; } .stage-gist { margin-left: 0; } .alg-lines { padding-left: 2.4rem; } }
+/* interactive demo call-to-action: safety blue -> competence orange as in the title; light mid stops avoid a grey-brown blend */
+.demo-cta { margin: 1.4rem 0 0.4rem; }
+.demo-button { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.7rem 1.4rem; border-radius: 6px;
+  background: linear-gradient(110deg, #68ACE5 0%, #A9CBEA 36%, #EFE9E3 50%, #F7C78F 64%, #F09937 100%); color: #002D72 !important; font-size: 1.08rem; font-weight: 600;
+  box-shadow: 0 4px 16px rgba(240, 153, 55, 0.3); transition: transform 0.2s, box-shadow 0.2s; }
+.demo-button b { color: #002D72; font-weight: 800; }
+.demo-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240, 153, 55, 0.4); color: #002D72 !important; }
+.demo-button .demo-arrow { transition: transform 0.2s; }
+.demo-button:hover .demo-arrow { transform: translateX(3px); }
